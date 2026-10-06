@@ -1,0 +1,6 @@
+Generated using the built-in imagegen tool for this project.
+Saved asset: static/images/hero-car.png
+
+Use case: product-mockup. Asset type: hero photograph for a polished used car valuation website called CarValue AI. Create an elegant photorealistic graphite metallic modern compact luxury sedan, front three-quarter view facing left, entire car fully visible with generous margins, no visible brand logos, no people, no text, no watermark. Warm pale ivory seamless studio backdrop and ground, soft diffused daylight from above left, realistic reflections, fine silver alloy wheels, restrained editorial automotive photography. Wide landscape composition 1536x1024. Car occupies the lower middle 65 percent of the image; upper background has blank space. Subtle soft natural grounding shadow. High quality realistic proportions.
+
+The image is a generated decorative asset, not a screenshot or a real vehicle listing.

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import field %}
+{% block title %}Get an estimate · CarValue AI{% endblock %}
+{% block content %}
+<section class="page-intro container"><a class="back-link" href="{{ url_for('main.index') }}">{{ icon('chevron-left') }} Back to home</a><span class="eyebrow">A CLEARER PICTURE, IN SECONDS</span><h1>Let’s get to know <em>your car.</em></h1><p>A few details are all it takes. Use your registration or vehicle specifications for the closest match.</p></section>
+<div class="container prediction-layout">
+<form class="prediction-form" method="post" id="prediction-form" data-catalog="{{ catalog|tojson|forceescape }}" data-year="{{ form.current_year }}">
+  {{ form.hidden_tag() }}
+  {% if form.errors %}<div class="alert alert-danger" role="alert">Please review the highlighted fields before requesting your estimate.</div>{% endif %}
+  <section class="form-card"><div class="form-section-heading"><span class="step-number">01</span><div><h2>The basics</h2><p>Start with the car’s identity.</p></div>{{ icon('car') }}</div><div class="field-grid">
+  {{ field(form.brand, 'Choose from 12 popular brands') }}
+  {{ field(form.model, 'Models available for your selected brand') }}
+  {{ field(form.year, 'From 2005 to ' ~ form.current_year) }}
+  {{ field(form.kilometers_driven, 'Total distance on the odometer', 'km') }}
+  {{ field(form.location, 'Demo location used by the model') }}
+  <div class="age-display"><span>{{ icon('clock') }} Calculated car age</span><strong><span id="car-age">{{ form.current_year - (form.year.data or form.current_year) }}</span> <small>years</small></strong><small>Calculated from manufacturing year</small></div>
+  </div></section>
+  <section class="form-card"><div class="form-section-heading"><span class="step-number">02</span><div><h2>Life on the road</h2><p>A little history makes a difference.</p></div>{{ icon('settings') }}</div><div class="field-grid three-columns">{{ field(form.fuel_type) }}{{ field(form.transmission) }}{{ field(form.owner_type, 'First = no previous owners') }}</div></section>
+  <section class="form-card"><div class="form-section-heading"><span class="step-number">03</span><div><h2>Under the hood</h2><p>Reference specs are filled for you. Adjust to your trim.</p></div>{{ icon('spark') }}</div><div class="field-grid">{{ field(form.engine, '600–6,500 cc', 'cc') }}{{ field(form.power, '45–700 horsepower', 'hp') }}{{ field(form.mileage, '5–40 kilometers per liter', 'km/L') }}{{ field(form.seats) }}</div></section>
+  <div class="form-submit-bar"><button type="reset" class="btn btn-outline-secondary">{{ icon('refresh') }} Reset details</button><button type="submit" class="btn btn-primary" id="predict-submit"><span class="button-label">Estimate my car’s value {{ icon('arrow') }}</span><span class="button-loading" hidden><span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Calculating estimate…</span></button></div>
+  <p class="form-note">{{ icon('shield') }} No account needed. Vehicle details are saved in the demo’s prediction history.</p>
+</form>
+<aside class="prediction-aside"><div class="preview-card"><span class="eyebrow">YOUR VEHICLE AT A GLANCE</span><img src="{{ url_for('static', filename='images/hero-car.png') }}" alt="Illustrative sedan; actual model may differ" width="1536" height="1024"><h3 id="preview-car">{{ form.brand.data }} {{ form.model.data }}</h3><p><span id="preview-year">{{ form.year.data }}</span> · <span id="preview-fuel">{{ form.fuel_type.data }}</span> · <span id="preview-transmission">{{ form.transmission.data }}</span></p><div class="preview-divider"></div><div class="mini-fact"><span>Currency</span><strong>USD · US dollars</strong></div><div class="mini-fact"><span>Model</span><strong>{{ metrics.selected_model }}</strong></div><div class="mini-fact"><span>Test R²</span><strong>{{ '%.3f'|format(metrics.test_metrics.r2) }}</strong></div><div class="demo-note">{{ icon('info') }}<span>This is an educational model trained on synthetic vehicles, not live market listings.</span></div></div><div class="aside-tip"><span class="feature-icon">{{ icon('check') }}</span><h3>A more useful estimate</h3><p>Use the actual odometer reading and trim specifications. Condition, accident history, and local demand can change real selling prices.</p><a href="{{ url_for('main.about') }}" class="text-link">Understand the model {{ icon('arrow') }}</a></div></aside>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{
+  "viewport": "1440 × 1000",
+  "mobile": "390 × 844",
+  "browserErrors": [],
+  "verified": [
+    "public prediction",
+    "brand/model dependencies",
+    "reset",
+    "admin login",
+    "charts",
+    "history search",
+    "dataset",
+    "mobile overflow",
+    "mobile navigation"
+  ]
+}

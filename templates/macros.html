@@ -1,0 +1,34 @@
+{% macro icon(name, class='') -%}
+<svg class="icon {{ class }}" aria-hidden="true"><use href="{{ url_for('static', filename='images/icons.svg') }}#{{ name }}"></use></svg>
+{%- endmacro %}
+
+{% macro field(input, hint='', unit='', extra='') %}
+<div class="field {{ extra }}">
+  {{ input.label(class='form-label') }}
+  <div class="input-wrap">
+    {% if input.type == 'SelectField' %}
+      {{ input(class='form-select' ~ (' is-invalid' if input.errors else ''), aria_describedby=input.id ~ '-hint') }}
+    {% else %}
+      {{ input(class='form-control' ~ (' is-invalid' if input.errors else ''), aria_describedby=input.id ~ '-hint', step='0.1' if input.type == 'FloatField' else '1', min='0') }}
+    {% endif %}
+    {% if unit %}<span class="input-unit">{{ unit }}</span>{% endif %}
+  </div>
+  <div id="{{ input.id }}-hint" class="field-hint">{% for error in input.errors %}<span class="field-error">{{ error }}</span>{% else %}{{ hint }}{% endfor %}</div>
+</div>
+{% endmacro %}
+
+{% macro prediction_table(items, deletable=false, action_form=none) %}
+<div class="table-responsive">
+  <table class="table prediction-table align-middle">
+    <thead><tr><th>Vehicle</th><th>Year / distance</th><th>Specification</th><th>Estimated value</th><th>Date (UTC)</th>{% if deletable %}<th><span class="visually-hidden">Actions</span></th>{% endif %}</tr></thead>
+    <tbody>{% for item in items %}<tr>
+      <td><div class="vehicle-cell"><span class="vehicle-avatar">{{ item.brand[:1] }}</span><div><a href="{{ url_for('main.result', public_id=item.public_id) }}">{{ item.brand }} {{ item.model }}</a><small>{{ item.location }} {% if item.is_demo %}· <span class="demo-label">Demo</span>{% endif %}</small></div></div></td>
+      <td>{{ item.year }}<small>{{ '{:,}'.format(item.kilometers_driven) }} km</small></td>
+      <td>{{ item.fuel_type }}<small>{{ item.transmission }}</small></td>
+      <td class="table-price">{{ item.predicted_price|money }}<small>USD</small></td>
+      <td>{{ item.created_at.strftime('%b %d, %Y') }}<small>{{ item.created_at.strftime('%H:%M') }}</small></td>
+      {% if deletable %}<td><form method="post" action="{{ url_for('admin.delete_prediction', prediction_id=item.id) }}" data-confirm="Delete this prediction permanently?">{{ action_form.hidden_tag() }}<button class="icon-button danger" aria-label="Delete {{ item.brand }} {{ item.model }} prediction">{{ icon('trash') }}</button></form></td>{% endif %}
+    </tr>{% else %}<tr><td colspan="6" class="empty-state">{{ icon('search') }}<h3>No predictions found</h3><p>Try another search, or create a vehicle estimate.</p></td></tr>{% endfor %}</tbody>
+  </table>
+</div>
+{% endmacro %}

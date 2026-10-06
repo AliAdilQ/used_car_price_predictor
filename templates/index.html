@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="hero-section"><div class="container hero-grid">
+  <div class="hero-copy">
+    <span class="eyebrow"><span class="status-dot"></span> Used Car Price Predictor</span>
+    <h1>Know your car’s<br>value. <em>Drive your<br>next decision.</em></h1>
+    <p class="hero-description">Get an AI-powered estimated market value based on your vehicle’s specifications. A clearer starting point, in seconds.</p>
+    <div class="hero-actions"><a href="{{ url_for('main.predict') }}" class="btn btn-primary">Predict car price {{ icon('arrow') }}</a><a href="{{ url_for('main.about') }}" class="text-link">See how it works {{ icon('arrow-up') }}</a></div>
+    <div class="hero-assurances"><span>{{ icon('check') }} No signup needed</span><span>{{ icon('check') }} Free to explore</span><span>{{ icon('check') }} Results in seconds</span></div>
+  </div>
+  <div class="hero-visual">
+    <div class="visual-topline"><span>{{ icon('spark') }} Powered by machine learning</span><span class="tiny-label">SMARTER ESTIMATES</span></div>
+    <span class="visual-word" aria-hidden="true">CarValue.</span>
+    <img class="hero-car" src="{{ url_for('static', filename='images/hero-car.png') }}" alt="Graphite sedan photographed in a warm ivory studio" width="1536" height="1024" fetchpriority="high">
+    <div class="valuation-float"><span class="float-icon">{{ icon('chart') }}</span><div><small>Your next decision, informed</small><strong>More clarity. Less guesswork.</strong></div><span class="float-check">{{ icon('check') }}</span></div>
+    <div class="visual-bottomline"><span>12 brands. 36 models. One smart tool.</span><span>{{ icon('shield') }} Educational demo</span></div>
+  </div>
+</div></section>
+<section class="brand-strip"><div class="container"><span class="strip-label">FROM EVERYDAY<br>TO EXTRAORDINARY</span><div class="brand-names"><span>TOYOTA</span><span class="honda-brand">HONDA</span><span>BMW</span><span class="mercedes-brand">Mercedes-Benz</span><span>Audi</span><span>MAZDA</span></div><a href="{{ url_for('main.predict') }}">+6 more {{ icon('arrow') }}</a></div></section>
+<section class="section-space"><div class="container"><div class="section-heading"><div><span class="eyebrow">THE CONFIDENCE TO MOVE FORWARD</span><h2>Good decisions start<br>with better information.</h2></div><p>Buying, selling, or just curious? Turn the details you know into an estimate you can explore.</p></div><div class="feature-grid">
+  <article class="feature-card"><span class="feature-icon">{{ icon('spark') }}</span><span class="feature-number">01</span><h3>Intelligence under the hood</h3><p>Three regression models are compared to select the best performer on validation data.</p><span class="card-caption">SCIKIT-LEARN POWERED</span></article>
+  <article class="feature-card"><span class="feature-icon">{{ icon('settings') }}</span><span class="feature-number">02</span><h3>Your car, in full detail</h3><p>From age and mileage to engine power and ownership, thirteen inputs shape your estimate.</p><span class="card-caption">VEHICLE-SPECIFIC INPUTS</span></article>
+  <article class="feature-card"><span class="feature-icon">{{ icon('shield') }}</span><span class="feature-number">03</span><h3>A transparent starting point</h3><p>See the estimate, an illustrative range, and the model behind it. All prices are in US dollars.</p><span class="card-caption">CLEAR, EXPLAINABLE RESULTS</span></article>
+</div></div></section>
+<section class="model-section"><div class="container model-grid"><div><span class="eyebrow light">BUILT ON DATA. OPEN BY DESIGN.</span><h2>A small model.<br>A thoughtful process.</h2><p>Real preprocessing. Honest evaluation. A complete Python workflow you can inspect, train, and make your own.</p><a href="{{ url_for('main.about') }}" class="btn btn-light">Explore the machine learning {{ icon('arrow') }}</a><small class="model-disclosure">Trained on synthetic data for education, not real market listings.</small></div><div class="model-stats"><div><strong>{{ '{:,}'.format(metrics.dataset_rows) }}</strong><span>Synthetic vehicle records</span></div><div><strong>{{ '%.3f'|format(metrics.test_metrics.r2) }}</strong><span>R² on the held-out test set</span></div><div><strong>3</strong><span>Regression models compared</span></div><div><strong>12</strong><span>Brands in the demo catalog</span></div></div></div></section>
+<section class="cta-section"><div class="container"><span class="eyebrow">YOUR NEXT MOVE STARTS HERE</span><h2>What’s your car worth?</h2><p>Bring the details. We’ll bring the estimate.</p><a href="{{ url_for('main.predict') }}" class="btn btn-primary">Find your car’s value {{ icon('arrow') }}</a></div></section>
+{% endblock %}

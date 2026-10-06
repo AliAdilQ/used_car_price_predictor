@@ -1,0 +1,90 @@
+{
+  "selected_model": "Linear Regression",
+  "currency": "USD",
+  "trained_at": "2026-10-06T05:28:40.901692+00:00",
+  "reference_year": 2026,
+  "sklearn_version": "1.7.2",
+  "dataset_type": "synthetic",
+  "dataset_rows": 3600,
+  "dataset_sha256": "d3280ce7b784322eb10973678a9267101bb82821968d33921f456a7f649ef860",
+  "dropped_rows": 0,
+  "features": [
+    "brand",
+    "model",
+    "fuel_type",
+    "transmission",
+    "owner_type",
+    "location",
+    "year",
+    "kilometers_driven",
+    "engine",
+    "mileage",
+    "power",
+    "seats",
+    "car_age"
+  ],
+  "split": {
+    "training": 2160,
+    "validation": 720,
+    "test": 720,
+    "final_fit": 2880
+  },
+  "selection": "Highest validation R\u00b2, then lowest validation RMSE",
+  "validation_models": [
+    {
+      "name": "Linear Regression",
+      "mae": 598.74,
+      "rmse": 892.67,
+      "r2": 0.992503
+    },
+    {
+      "name": "Random Forest",
+      "mae": 1422.49,
+      "rmse": 2157.76,
+      "r2": 0.956199
+    },
+    {
+      "name": "Gradient Boosting",
+      "mae": 981.9,
+      "rmse": 1480.79,
+      "r2": 0.979372
+    }
+  ],
+  "test_metrics": {
+    "mae": 614.56,
+    "rmse": 926.75,
+    "r2": 0.990845
+  },
+  "residual_band_usd": 1347.23,
+  "band_description": "90th percentile absolute test residual; illustrative, not a calibrated confidence interval",
+  "training_bounds": {
+    "year": {
+      "min": 2005.0,
+      "max": 2025.0
+    },
+    "kilometers_driven": {
+      "min": 2500.0,
+      "max": 380000.0
+    },
+    "engine": {
+      "min": 1000.0,
+      "max": 2900.0
+    },
+    "mileage": {
+      "min": 8.3,
+      "max": 24.3
+    },
+    "power": {
+      "min": 68.7,
+      "max": 354.1
+    },
+    "seats": {
+      "min": 2.0,
+      "max": 7.0
+    },
+    "car_age": {
+      "min": 1.0,
+      "max": 21.0
+    }
+  }
+}

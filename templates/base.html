@@ -1,0 +1,44 @@
+{% from 'macros.html' import icon %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CarValue AI: an educational machine learning app for estimating used car prices in USD.">
+  <meta name="theme-color" content="#176b5b">
+  <title>{% block title %}CarValue AI · Used Car Price Predictor{% endblock %}</title>
+  <link rel="icon" href="{{ url_for('static', filename='images/favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='vendor/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+<a class="skip-link" href="#main-content">Skip to content</a>
+{% block header %}
+<header class="site-header">
+  <nav class="container site-nav" aria-label="Main navigation">
+    <a class="brand" href="{{ url_for('main.index') }}"><span class="brand-mark">{{ icon('car') }}</span><span>CarValue<span class="brand-ai"> AI</span></span></a>
+    <button class="mobile-toggle icon-button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="main-nav">{{ icon('menu') }}</button>
+    <div class="nav-links" id="main-nav">
+      <a class="{{ 'active' if request.endpoint == 'main.index' }}" href="{{ url_for('main.index') }}">Home</a>
+      <a class="{{ 'active' if request.endpoint == 'main.predict' }}" href="{{ url_for('main.predict') }}">Price predictor</a>
+      <a class="{{ 'active' if request.endpoint == 'main.about' }}" href="{{ url_for('main.about') }}">How it works</a>
+      <a class="nav-github" href="{{ github_url }}" target="_blank" rel="noopener">{{ icon('code') }} GitHub</a>
+      <a class="btn btn-primary btn-sm" href="{{ url_for('main.predict') }}">Get an estimate {{ icon('arrow') }}</a>
+    </div>
+  </nav>
+</header>
+{% endblock %}
+{% block wrapper %}
+<main id="main-content">
+  {% block flashes %}<div class="container flash-container">{% for category, message in get_flashed_messages(with_categories=true) %}<div class="alert alert-{{ category }}" role="alert">{{ message }}</div>{% endfor %}</div>{% endblock %}
+  {% block content %}{% endblock %}
+</main>
+{% endblock %}
+{% block footer %}
+<footer class="site-footer"><div class="container"><div class="footer-top"><a class="brand" href="{{ url_for('main.index') }}"><span class="brand-mark">{{ icon('car') }}</span><span>CarValue<span class="brand-ai"> AI</span></span></a><p>A little intelligence for your next big decision.</p><div class="footer-links"><a href="{{ url_for('main.about') }}">About the project</a><a href="{{ github_url }}" target="_blank" rel="noopener">Source code {{ icon('arrow-up') }}</a><a href="{{ url_for('admin.login') }}">Admin</a></div></div><div class="footer-bottom"><span>Built by <a href="https://github.com/AliAdilQ" target="_blank" rel="noopener">AliAdilQ</a> · Open source under MIT</span><span>Synthetic demo data · All prices in USD</span></div></div></footer>
+{% endblock %}
+<script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

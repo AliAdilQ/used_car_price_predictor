@@ -1,0 +1,3 @@
+{% extends 'base.html' %}
+{% block title %}Refresh your session · CarValue AI{% endblock %}
+{% block content %}<section class="error-page container"><span class="error-number">400</span><span class="eyebrow">LET’S START FRESH</span><h1>A quick refresh is all it takes.</h1><p>{{ message }}</p><a href="{{ url_for('main.predict') }}" class="btn btn-primary">Return to the predictor {{ icon('arrow') }}</a></section>{% endblock %}
